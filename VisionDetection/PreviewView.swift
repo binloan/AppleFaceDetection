@@ -57,6 +57,10 @@ class PreviewView: UIView {
         return mask
     }
     
+    func setCamera(visible : Bool){
+        view.backgroundColor = visible ? .clear : .white
+    }
+    
     func drawFaceboundingBox(face : VNFaceObservation) {
         
         let transform = CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -frame.width, y: -frame.height)
@@ -65,13 +69,11 @@ class PreviewView: UIView {
         
         // The coordinates are normalized to the dimensions of the processed image, with the origin at the image's lower-left corner.
         let facebounds = face.boundingBox.applying(translate).applying(transform)
-        view.backgroundColor = UIColor.clear
         _ = createLayer(in: facebounds)
         
     }
     
     func drawFaceWithLandmarks(face: VNFaceObservation) {
-        view.backgroundColor = UIColor.white
         let transform = CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -frame.width, y: -frame.height)
         
         let translate = CGAffineTransform.identity.scaledBy(x: frame.width, y: frame.height)

@@ -21,14 +21,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DJU-kI-TMg" customClass="PreviewView" customModule="VisionDetection" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJU-kI-TMg" customClass="PreviewView" customModule="VisionDetection" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6z8-Eo-Ydy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Camera Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-E0-Pcr">
+                                <rect key="frame" x="136" y="628" width="158" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xTM-C6-vQs">
+                                <rect key="frame" x="302" y="628" width="51" height="31"/>
+                                <connections>
+                                    <action selector="didSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="rfw-TV-qq5"/>
+                                </connections>
+                            </switch>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6z8-Eo-Ydy">
                                 <rect key="frame" x="16" y="28" width="343" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Rectangle"/>
                                     <segment title="Landmark"/>
@@ -39,8 +49,24 @@
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="xTM-C6-vQs" secondAttribute="trailing" constant="8" id="9i4-zT-il6"/>
+                            <constraint firstItem="DJU-kI-TMg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ag6-xi-1xX"/>
+                            <constraint firstItem="6z8-Eo-Ydy" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="KwT-H1-oif"/>
+                            <constraint firstItem="xTM-C6-vQs" firstAttribute="leading" secondItem="fMq-E0-Pcr" secondAttribute="trailing" constant="8" id="RCv-zB-teL"/>
+                            <constraint firstItem="DJU-kI-TMg" firstAttribute="centerX" secondItem="6z8-Eo-Ydy" secondAttribute="centerX" id="RQz-sD-B8O"/>
+                            <constraint firstItem="6z8-Eo-Ydy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Ydo-sl-g3T"/>
+                            <constraint firstItem="xTM-C6-vQs" firstAttribute="top" secondItem="fMq-E0-Pcr" secondAttribute="top" id="cqz-k8-pTR"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fMq-E0-Pcr" secondAttribute="bottom" constant="8" id="geL-cm-rVJ"/>
+                            <constraint firstItem="DJU-kI-TMg" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="kYx-Qv-FYv"/>
+                            <constraint firstItem="DJU-kI-TMg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kad-tb-e9Q"/>
+                            <constraint firstItem="6z8-Eo-Ydy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kmV-WK-oer"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xTM-C6-vQs" secondAttribute="bottom" constant="8" id="rSW-3s-pwD"/>
+                            <constraint firstItem="fMq-E0-Pcr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="tDS-H6-rjD"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="cameraImageSwitch" destination="xTM-C6-vQs" id="2ED-Z5-PJg"/>
                         <outlet property="previewView" destination="DJU-kI-TMg" id="0gd-Nq-oNQ"/>
                         <outlet property="segmentedControl" destination="6z8-Eo-Ydy" id="8oh-KX-wM7"/>
                     </connections>

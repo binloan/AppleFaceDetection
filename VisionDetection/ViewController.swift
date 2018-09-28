@@ -12,6 +12,11 @@ import Vision
 
 class ViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var cameraImageSwitch: UISwitch!
+    
+    @IBAction func didSwitch(_ sender: UISwitch) {
+        previewView.setCamera(visible: sender.isOn)
+    }
     
     // VNRequest: Either Retangles or Landmarks
     var faceDetectionRequest: VNRequest!
@@ -21,6 +26,7 @@ class ViewController: UIViewController {
         
         // Set up the video preview view.
         previewView.session = session
+        previewView.setCamera(visible: cameraImageSwitch.isOn)
         
         // Set up Vision Request
         faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleFaces) // Default
