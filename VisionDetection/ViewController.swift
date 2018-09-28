@@ -181,17 +181,14 @@ class ViewController: UIViewController {
             var defaultVideoDevice: AVCaptureDevice?
             
             // Choose the back dual camera if available, otherwise default to a wide angle camera.
-            if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back) {
+            if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front) {
+                defaultVideoDevice = frontCameraDevice
+            } else if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back) {
                 defaultVideoDevice = dualCameraDevice
-            }
-                
-            else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back) {
+            } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back) {
                 defaultVideoDevice = backCameraDevice
             }
-                
-            else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front) {
-                defaultVideoDevice = frontCameraDevice
-            }
+
             
             let videoDeviceInput = try AVCaptureDeviceInput(device: defaultVideoDevice!)
             

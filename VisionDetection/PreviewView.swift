@@ -51,7 +51,7 @@ class PreviewView: UIView {
     
     func drawFaceboundingBox(face : VNFaceObservation) {
         
-        let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -frame.height)
+        let transform = CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -frame.width, y: -frame.height)
         
         let translate = CGAffineTransform.identity.scaledBy(x: frame.width, y: frame.height)
         
@@ -64,7 +64,7 @@ class PreviewView: UIView {
     
     func drawFaceWithLandmarks(face: VNFaceObservation) {
         
-        let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -frame.height)
+        let transform = CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -frame.width, y: -frame.height)
         
         let translate = CGAffineTransform.identity.scaledBy(x: frame.width, y: frame.height)
         
@@ -106,8 +106,8 @@ class PreviewView: UIView {
         // Change scale, coordinate systems, and mirroring
         landmarkLayer.transform = CATransform3DMakeAffineTransform(
             CGAffineTransform.identity
-                .scaledBy(x: rect.width, y: -rect.height)
-                .translatedBy(x: 0, y: -1)
+                .scaledBy(x: -rect.width, y: -rect.height)
+                .translatedBy(x: -1, y: -1)
         )
 
         targetLayer.insertSublayer(landmarkLayer, at: 1)
