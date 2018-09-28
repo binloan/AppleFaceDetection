@@ -11,6 +11,7 @@ import AVFoundation
 import Vision
 
 class ViewController: UIViewController {
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     // VNRequest: Either Retangles or Landmarks
     var faceDetectionRequest: VNRequest!
@@ -378,6 +379,9 @@ extension ViewController {
             //perform all the UI updates on the main queue
             guard let results = request.results as? [VNFaceObservation] else { return }
             self.previewView.removeMask()
+            if self.segmentedControl.selectedSegmentIndex > 0{
+                return
+            }
             for face in results {
                 self.previewView.drawFaceboundingBox(face: face)
             }

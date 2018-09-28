@@ -13,10 +13,12 @@ import AVFoundation
 class PreviewView: UIView {
     
     private var maskLayer = [CAShapeLayer]()
+    private var previewLayer = AVCaptureVideoPreviewLayer()
+    private var isInit = false
     
     // MARK: AV capture properties
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        return layer as! AVCaptureVideoPreviewLayer
+        return previewLayer
     }
     
     var session: AVCaptureSession? {
@@ -26,6 +28,10 @@ class PreviewView: UIView {
         
         set {
             videoPreviewLayer.session = newValue
+            if !isInit{
+                layer.addSublayer(previewLayer)
+            }
+            isInit = true
         }
     }
     
@@ -34,14 +40,16 @@ class PreviewView: UIView {
     }
     
     // Create a new layer drawing the bounding box
-    private func createLayer(in rect: CGRect) -> CAShapeLayer{
+    private func createLayer(in rect: CGRect, withBoundingBox : Bool = true) -> CAShapeLayer{
         
         let mask = CAShapeLayer()
         mask.frame = rect
-        mask.cornerRadius = 10
-        mask.opacity = 0.75
-        mask.borderColor = UIColor.yellow.cgColor
-        mask.borderWidth = 2.0
+        if withBoundingBox{
+            mask.cornerRadius = 10
+            mask.opacity = 0.75
+            mask.borderColor = UIColor.yellow.cgColor
+            mask.borderWidth = 2.0
+        }
         
         maskLayer.append(mask)
         layer.insertSublayer(mask, at: 1)
@@ -72,7 +80,7 @@ class PreviewView: UIView {
         let facebounds = face.boundingBox.applying(translate).applying(transform)
         
         // Draw the bounding rect
-        let faceLayer = createLayer(in: facebounds)
+        let faceLayer = createLayer(in: facebounds, withBoundingBox: false)
         
         // Draw the landmarks
         drawLandmarks(on: faceLayer, faceLandmarkRegion: (face.landmarks?.nose)!, isClosed:false)
