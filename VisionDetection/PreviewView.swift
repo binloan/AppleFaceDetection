@@ -13,25 +13,25 @@ import AVFoundation
 class PreviewView: UIView {
     
     private var maskLayer = [CAShapeLayer]()
-    private var previewLayer = AVCaptureVideoPreviewLayer()
     private var isInit = false
+    private var view : UIView!
     
     // MARK: AV capture properties
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-        return previewLayer
+        return layer as! AVCaptureVideoPreviewLayer
     }
     
     var session: AVCaptureSession? {
         get {
             return videoPreviewLayer.session
         }
-        
         set {
             videoPreviewLayer.session = newValue
             if !isInit{
-                layer.addSublayer(previewLayer)
+                isInit = false
+                view = UIView(frame: frame)
+                addSubview(view)
             }
-            isInit = true
         }
     }
     
@@ -52,7 +52,7 @@ class PreviewView: UIView {
         }
         
         maskLayer.append(mask)
-        layer.insertSublayer(mask, at: 1)
+        view.layer.insertSublayer(mask, at: 1)
         
         return mask
     }
@@ -65,13 +65,13 @@ class PreviewView: UIView {
         
         // The coordinates are normalized to the dimensions of the processed image, with the origin at the image's lower-left corner.
         let facebounds = face.boundingBox.applying(translate).applying(transform)
-        
+        view.backgroundColor = UIColor.clear
         _ = createLayer(in: facebounds)
         
     }
     
     func drawFaceWithLandmarks(face: VNFaceObservation) {
-        
+        view.backgroundColor = UIColor.white
         let transform = CGAffineTransform(scaleX: -1, y: -1).translatedBy(x: -frame.width, y: -frame.height)
         
         let translate = CGAffineTransform.identity.scaledBy(x: frame.width, y: frame.height)
